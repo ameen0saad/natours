@@ -29,18 +29,18 @@ cd natours
 -npm install
 
  ## Environment Variables Setup
- NODE_ENV=development
-PORT=3000
-DATABASE=<your_mongodb_connection_string>
-DATABASE_PASSWORD=<your_password>
-JWT_SECRET=<your_jwt_secret>
-JWT_EXPIRES_IN=90d
-JWT_COOKIE_EXPIRES_IN=90
-EMAIL_USERNAME=<your_sendgrid_email>
-EMAIL_PASSWORD=<your_sendgrid_password>
-EMAIL_HOST=smtp.sendgrid.net
-STRIPE_SECRET_KEY=<your_stripe_key>
-STRIPE_WEBHOOK_SECRET=<your_stripe_webhook>
+-NODE_ENV=development
+-PORT=3000
+-DATABASE=<your_mongodb_connection_string>
+-DATABASE_PASSWORD=<your_password>
+-JWT_SECRET=<your_jwt_secret>
+-JWT_EXPIRES_IN=90d
+-JWT_COOKIE_EXPIRES_IN=90
+-EMAIL_USERNAME=<your_sendgrid_email>
+-EMAIL_PASSWORD=<your_sendgrid_password>
+-EMAIL_HOST=smtp.sendgrid.net
+-STRIPE_SECRET_KEY=<your_stripe_key>
+-STRIPE_WEBHOOK_SECRET=<your_stripe_webhook>
 
 
 ## 📁 Project Structure
