@@ -9,9 +9,9 @@ A fully functional RESTful API and web application for booking adventure tours. 
 - **Booking System**: Stripe payment integration for secure tour bookings
 - **Review System**: Users can rate and review tours
 - **Role-Based Access Control**: Admin, lead guide, guide, and user roles
-- **Geolocation**: Mapbox integration for tour locations and distance calculations
+- **Geolocation**: Leaflet.js with geolocation for tour locations and distance calculations
 - **Image Processing**: Multer and Sharp for image uploads and resizing
-- **Email Notifications**: SendGrid integration for transactional emails
+- **Email Notifications**: Nodemailer integration for transactional emails
 - **Password Management**: Secure password reset with token expiration
 - **Admin Dashboard**: Manage tours, users, guides, bookings, and reviews
 
@@ -32,7 +32,7 @@ This separation of concerns makes the codebase maintainable, scalable, and easy 
 - **Authentication**: JWT (JSON Web Tokens), Passport.js
 - **Frontend**: Pug Template Engine (MVC View Layer)
 - **Payments**: Stripe API
-- **Maps**: Mapbox API
+- **Maps**: Leaflet.js with Leaflet Control Geocoder
 - **Email**: Nodemailer with SendGrid/Turbo SMTP
 - **Image Processing**: Multer, Sharp
 - **Security**: Helmet, Express Rate Limiting, MongoDB Sanitize
@@ -46,7 +46,6 @@ This separation of concerns makes the codebase maintainable, scalable, and easy 
 - Stripe account
 - SendGrid or Turbo SMTP account
 - Google OAuth credentials
-- Mapbox API key
 
 ## 🚀 Getting Started
 
@@ -101,9 +100,6 @@ STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
 # Google OAuth
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
-
-# Mapbox
-MAPBOX_TOKEN=pk_your_mapbox_token
 ```
 
 ### 4. Start the Server
@@ -322,13 +318,13 @@ The project includes several email templates:
 
 ## 🎨 Frontend Features
 
-- Responsive design with modern CSS
-- Interactive maps with Mapbox integration
-- Real-time tour search and filtering
-- Review system with star ratings
-- Secure payment checkout with Stripe
-- User profile management
-- Admin dashboard
+- **Responsive design** with modern CSS
+- **Interactive maps** with Leaflet.js for tour locations
+- **Real-time tour search** and filtering
+- **Review system** with star ratings
+- **Secure payment checkout** with Stripe
+- **User profile management**
+- **Admin dashboard**
 
 ## 📊 Database Models
 
@@ -386,17 +382,13 @@ To deploy to production:
 5. Set up environment variables on hosting platform
 
 
-## 🤝 Contributing
 
-Contributions are welcome! Please follow the existing code style and patterns.
-
-## 📄 License
-
-ISC
 
 ## 👤 Author
 
 Ameen Saad
 
+
+---
 
 **Happy touring! 🎉**
