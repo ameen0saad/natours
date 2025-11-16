@@ -6,7 +6,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const sanitize = require('sanitize');
 const hpp = require('hpp');
 const path = require('path');
-
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const AppError = require('./utils/appError');
@@ -15,16 +15,39 @@ const routeTour = require('./routes/tourRoutes');
 const routeUser = require('./routes/userRoutes');
 const routeReview = require('./routes/reviewRoutes');
 const routeBooking = require('./routes/bookingRoutes');
+const routeView = require('./routes/viewRoutes');
 
 const app = express();
-app.use(cors({ origin: '*' }));
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'Views'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors({ origin: ['*'] }));
+
+//TODO : Global middleware
+
+//TODO : Configure CSP to allow external resources
 app.use(
-  '/img/tours',
-  express.static(path.join(__dirname, 'public', 'img', 'tours')),
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        scriptSrc: ["'self'", 'https://js.stripe.com'],
+        frameSrc: [
+          "'self'",
+          'https://js.stripe.com',
+          'https://hooks.stripe.com',
+        ],
+        connectSrc: ["'self'", 'ws://127.0.0.1:61866'], // For WebSocket
+        imgSrc: ["'self'", 'data:', 'https:'],
+      },
+    },
+  }),
 );
 
-// TODO : Global middleware
-app.use(helmet());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -38,15 +61,22 @@ const limiter = ratelimit({
 app.use('/api', limiter);
 
 app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(cookieParser());
+
 app.use(mongoSanitize());
+
 app.use(sanitize.middleware);
+
 app.use(hpp({ whitelist: ['duration'] }));
+
 // TODO : Test the middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
 
+app.use('/', routeView);
 app.use('/api/v1/tours', routeTour);
 app.use('/api/v1/users', routeUser);
 app.use('/api/v1/reviews', routeReview);

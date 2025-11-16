@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-// const User = require('./userModel');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -100,7 +99,7 @@ const tourSchema = new mongoose.Schema(
     guides: [
       {
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
+        ref: 'Review',
       },
     ],
   },
@@ -142,10 +141,10 @@ tourSchema.pre('save', function (next) {
 });
 
 // TODO : Test the middleware
-tourSchema.pre('save', (next) => {
-  console.log('Will save document...');
-  next();
-});
+// tourSchema.pre('save', (next) => {
+//   console.log('Will save document...');
+//   next();
+// });
 // TODO : get the user of the references by populate
 tourSchema.pre(/^find/, function (next) {
   this.populate({
@@ -155,10 +154,10 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
-tourSchema.post('save', (doc, next) => {
-  console.log(doc);
-  next();
-});
+// tourSchema.post('save', (doc, next) => {
+//   console.log(doc);
+//   next();
+// });
 
 // TODO : Doesn`t show the secret tour
 tourSchema.pre(/^find/, function () {
@@ -166,9 +165,22 @@ tourSchema.pre(/^find/, function () {
   this.start = Date.now();
 });
 // TODO : Measure the time of the query
-tourSchema.post(/^find/, function () {
-  console.log(`Query took ${Date.now() - this.start} milliseconds!)`);
+// tourSchema.post(/^find/, function () {
+//   console.log(`Query took ${Date.now() - this.start} milliseconds!)`);
+// });
+
+tourSchema.pre('findOneAndDelete', async function (next) {
+  const Review = mongoose.model('Review');
+  const Booking = mongoose.model('Booking');
+
+  const doc = await this.model.findOne(this.getFilter());
+  if (doc) {
+    await Review.deleteMany({ tour: doc._id });
+    await Booking.deleteMany({ tour: doc._id });
+  }
+  next();
 });
+
 // TODO : Doesn`t show the secret tour in pipeline
 // tourSchema.pre('aggregate', function () {
 //   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });

@@ -198,6 +198,7 @@ body {
   font-weight: 400;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+
   /*Add later when we use this for the button in form*/
   border: none;
   cursor: pointer;
@@ -650,6 +651,7 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   text-transform: uppercase;
+  text-decoration: none;
 }
 .reviews__text {
   font-size: 1.5rem;
@@ -830,6 +832,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  justify-content: flex-end;
 }
 .footer__nav li {
   margin-left: 1.5rem;
@@ -1230,6 +1233,15 @@ body {
   padding: 5rem 7rem;
   border-radius: 5px;
 }
+.signup-form {
+  margin: 0 auto;
+  max-width: 55rem;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  padding: 5rem 7rem;
+  border-radius: 5px;
+}
 
 .form__input {
   display: block;
@@ -1321,4 +1333,532 @@ body {
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
+}
+.location-label {
+  opacity: 0.2;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.reviews__tour {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    from(rgba(125, 213, 111, 0.85)),
+    to(rgba(40, 180, 135, 0.85))
+  );
+}
+
+.btn__review {
+  margin-top: 10px;
+  background-color: #f13232;
+}
+.mr__review__card {
+  background-color: #bfeedf;
+}
+.add__review {
+  margin-top: 290px;
+  position: absolute;
+  margin-left: 120px;
+  margin-top: 50px;
+  width: 60%;
+  padding: 1rem 1.5rem;
+  line-height: 1;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    from(rgba(125, 213, 111, 0.85)),
+    to(rgba(40, 180, 135, 0.85))
+  );
+}
+
+.add-review {
+  width: 50%;
+  margin-left: 25%;
+  background-color: #f7f7f7;
+  padding: 3rem 5rem;
+  border-radius: 10px;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.add-review__form {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.add-review .form__group {
+  margin-bottom: 2rem;
+}
+
+.add-review .form__input,
+.add-review textarea {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.add-review .form__input:focus,
+.add-review textarea:focus {
+  border-color: #55c57a;
+  box-shadow: 0 0 5px rgba(85, 197, 122, 0.4);
+  outline: none;
+}
+
+.add-review .btn--green {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  padding: 1rem 2.5rem;
+  border-radius: 100px;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 2.5rem;
+  color: #ccc;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.rating .star.active {
+  color: #55c57a;
+  text-shadow: 0 0 5px rgba(85, 197, 122, 0.5);
+  transform: scale(1.1);
+  transition: all 0.2s;
+}
+
+/* ===== Container for buttons ===== */
+.manage-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* ===== Base button style ===== */
+.btn-action {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-align: center;
+  min-width: 100px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Colors ===== */
+.btn-delete {
+  color: wheat;
+  background-color: #e74c3c;
+}
+.btn-delete:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.btn-update {
+  background-color: #27ae60;
+}
+.btn-update:hover {
+  background-color: #1e8449;
+  transform: translateY(-2px);
+}
+
+.btn-guides {
+  background-color: #3498db;
+}
+.btn-guides:hover {
+  background-color: #2c80b4;
+  transform: translateY(-2px);
+}
+
+/* ===== Click effect ===== */
+.btn-action:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+.guide {
+  margin-top: 100px;
+  justify-items: center;
+}
+
+#role {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  color: inherit;
+  padding: 1.25rem 1.75rem;
+  border: none;
+  background-color: #fff;
+  background-color: #f2f2f2;
+  border-top: 3px solid transparent;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Container */
+.container {
+  max-width: 120rem;
+  margin: 5rem auto;
+  background-color: #fff;
+  padding: 3rem 4rem;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.container h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.6rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Header Row */
+.table thead {
+  background-color: #28b487;
+  color: #fff;
+}
+
+.table th {
+  text-align: left;
+  padding: 1.5rem 2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Body Rows */
+.table td {
+  padding: 1.5rem 2rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #eee;
+}
+
+/* Zebra Stripes */
+.table tbody tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+/* Hover Effect */
+.table tbody tr:hover {
+  background-color: #f1fdf6;
+  transition: background-color 0.3s;
+}
+
+/* User Image */
+.table img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #28b487;
+}
+
+/* Select Role */
+.table select {
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.table select:focus {
+  border-color: #28b487;
+  box-shadow: 0 0 5px rgba(40, 180, 135, 0.3);
+}
+
+/* Buttons */
+.table button {
+  margin-left: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn--green:hover {
+  background-color: #23986e;
+}
+
+.btn--red {
+  background-color: #eb4d4b;
+  color: #fff;
+  border: none;
+}
+
+.btn--red:hover {
+  background-color: #d73332;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    margin-bottom: 1.5rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .table td {
+    padding: 1rem 1.5rem;
+    text-align: right;
+    position: relative;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1.5rem;
+    width: 50%;
+    font-weight: 600;
+    text-align: left;
+    color: #555;
+  }
+}
+
+/* Modern Confirm Dialog Styles */
+.confirm-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.confirm-dialog-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.confirm-dialog {
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.confirm-dialog-overlay.active .confirm-dialog {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.confirm-dialog-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.confirm-dialog-icon {
+  width: 24px;
+  height: 24px;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+.confirm-dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.confirm-dialog-body {
+  padding: 20px 24px;
+}
+
+.confirm-dialog-message {
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.confirm-dialog-footer {
+  padding: 16px 24px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.confirm-dialog-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-width: 80px;
+}
+
+.confirm-dialog-btn-cancel {
+  background: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.confirm-dialog-btn-cancel:hover {
+  background: #f1f5f9;
+  transform: translateY(-1px);
+}
+
+.confirm-dialog-btn-confirm {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.confirm-dialog-btn-confirm:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .confirm-dialog {
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
+
+  .confirm-dialog-footer {
+    flex-direction: column-reverse;
+  }
+
+  .confirm-dialog-btn {
+    width: 100%;
+  }
+}
+.forget-password {
+  font-size: medium;
+  color: #059669;
+  text-decoration: none;
+  position: relative;
+  padding: 4px 0;
+  font-weight: 500;
+}
+
+.forget-password::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #059669, #10b981);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.forget-password:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.forget-password:hover {
+  color: #047857;
+}
+.google-auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 24px;
+  background: white;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #3c4043;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: 10px 60px;
+}
+
+.google-auth-btn:hover {
+  background: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.google-auth-btn:active {
+  transform: translateY(0);
+}
+
+.google-icon {
+  flex-shrink: 0;
 }

@@ -18,6 +18,28 @@ exports.deleteOne = (Model) =>
 
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
+    if (req.body.guides) {
+      if (req.body.addGuide) {
+        await Model.findByIdAndUpdate(
+          req.params.id,
+          { $addToSet: { guides: req.body.guides } },
+          {
+            new: true,
+            runValidators: true,
+          },
+        );
+      } else if (req.body.deleteGuide) {
+        await Model.findByIdAndUpdate(
+          req.params.id,
+          { $pull: { guides: req.body.guides } },
+          {
+            new: true,
+            runValidators: true,
+          },
+        );
+      }
+      delete req.body.guides;
+    }
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -65,7 +87,7 @@ exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
     if (req.params.tourId) filter = { tour: req.params.tourId };
-    //  Execute the query
+    //TODO : Execute the query
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
@@ -80,3 +102,16 @@ exports.getAll = (Model) =>
       data: { Data: doc },
     });
   });
+
+/*
+🟡 FULL BODY: { guides:  '5c8a1f292f8fb814b56fa184', deleteGuide: true }
+🟡 ID param: 5c88fa8cf4afda39709c2955       
+🟡 Guide to delete: 5c8a1f292f8fb814b56fa184
+🟡 delete:  true
+
+🟡 FULL BODY: { guides:  '5c8a1d5b0190b214360dc057', deleteGuide: true }
+🟡 ID param: 5c88fa8cf4afda39709c2955
+🟡 Guide to delete: 5c8a1d5b0190b214360dc057
+🟡 delete:  true
+
+*/

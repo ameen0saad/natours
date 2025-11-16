@@ -1,0 +1,25 @@
+extends base 
+
+block content
+    main.main
+        .card-container
+            each booking in bookings
+                .card
+                    .card__header
+                        .card__picture
+                            img.card__picture-img(src=`/img/tours/${booking.tour.imageCover}`, alt=`${booking.tour.name}`)
+                        h3.heading-tertirary
+                            span= booking.tour.name
+
+                    .card__details
+                        .card__data
+                            span=`Name: ${ booking.user.name}`
+                        .card__data
+                            span=`Email: ${booking.user.email}`
+
+                    .card__footer
+                        p
+                            span.card__footer-value=`$${booking.price}  ` 
+                            span.card__footer-text per person
+
+                        a.btn.btn--green.btn--small(href=`/tour/${booking.tour.slug}`) Details

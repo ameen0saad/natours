@@ -1,0 +1,29 @@
+extends base
+
+block content
+    .container(style='max-width: 150rem; margin: 50px auto;    font-weight: bold; ')
+        h2 User Management
+        table.table
+            thead
+                tr
+                    th Photo
+                    th Name
+                    th Role
+                    th Email
+                    th Actions
+            tbody
+                each user in users
+                    tr
+                        td: img(src=`/img/users/${user.photo}`, alt=`${user.name}`, style='width:50px; height:50px; border-radius:50%;')
+                        td= user.name
+                        td= user.role
+                        td= user.email
+                        td
+                            select#role(name='role')
+                                option(value='') Select role
+                                option(value='user') User
+                                option(value='admin') Admin
+                                option(value='lead-guide') Lead guide
+                                option(value='guide') Guide
+                            button.btn.btn--green#update-role(data-user-id=`${user.id}`) Update
+                            button.btn.btn--red#delete-user(data-user-id=`${user.id}`) Delete

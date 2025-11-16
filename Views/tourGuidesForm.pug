@@ -1,0 +1,30 @@
+extend base 
+include _reviewCard
+
+block content 
+    section
+        .heading-box
+            h1.heading-primary
+                span(style="display: block;")=`${tour.name} tour`
+        .reviews.guide   
+            each guide in guides
+                .reviews__card.mr__review__card
+                    .reviews__avatar
+                        img.reviews__avatar-img(src=`/img/users/${guide.photo}`, alt=`${guide.name}`)
+                        h6.reviews__user=  guide.name
+                    .reviews__user=  `${guide.role}` 
+
+                    button.btn.btn--green.span-all-rows.btn__review.btn-delete.btn__delete-guide#delete-guide(data-guide-id=`${guide.id}` data-tour-id=`${tour.id}`) Delete 
+    section
+        .heading-box
+            h1.heading-primary
+                span(style="display: block;")=`${tour.name} tour`
+        .reviews.guide   
+            each user in users
+                .reviews__card.mr__review__card
+                    .reviews__avatar
+                        img.reviews__avatar-img(src=`/img/users/${user.photo}`, alt=`${user.name}`)
+                        h6.reviews__user=  user.name
+                    .reviews__user=  `${user.role}` 
+
+                    button.btn.btn--green.span-all-rows.btn__review.btn__add-guide.btn-guides#add-guide(data-user-id=`${user.id}` data-tour-id=`${tour.id}`) Add  

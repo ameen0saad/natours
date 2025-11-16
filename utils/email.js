@@ -1,5 +1,6 @@
-const fs = require('fs');
 const nodemailer = require('nodemailer');
+const pug = require('pug');
+const htmlToText = require('html-to-text');
 
 module.exports = class Email {
   constructor(user, url) {
@@ -9,7 +10,7 @@ module.exports = class Email {
     this.from = `Ameen <${process.env.EMAIL_FROM}>`;
   }
 
-  createTransport() {
+  newTransport() {
     if (process.env.NODE_ENV === 'production') {
       return nodemailer.createTransport({
         host: 'pro.turbo-smtp.com',
@@ -33,36 +34,38 @@ module.exports = class Email {
   async send(template, subject) {
     // 1) Render HTML based on a pug template
     // 2) Define email options
+    const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
+      firstName: this.firstName,
+      url: this.url,
+      subject,
+    });
     const mailOptions = {
       from: this.from,
       to: this.to,
       subject,
-      html: template,
+      html,
+      text: htmlToText.htmlToText(html),
     };
     // 3) Create a transport and send email
-    await this.createTransport().sendMail(mailOptions);
+    await this.newTransport().sendMail(mailOptions);
+  }
+
+  async sendVerificationEmail() {
+    await this.send(
+      'verifyEmail',
+      'Your verification token (valid for only 24 hours)',
+    );
   }
 
   async sendWelcome() {
-    const templateWelcome = fs.readFileSync(
-      `${__dirname}/../view/Welcome.html`,
-      'utf-8',
-    );
-    const html = templateWelcome
-      .replace('{{firstName}}', this.firstName)
-      .replace('{{welcomeURL}}', this.url);
-
-    await this.send(html, 'Welcome to the Natours Family!');
+    await this.send('welcome', 'Welcome to the Natours Family!');
   }
 
   async sendPasswordReset() {
-    const templateReset = fs.readFileSync(
-      `${__dirname}/../view/reset.html`,
-      'utf-8',
+    await this.send(
+      'passwordReset',
+      'Your password reset token (valid for only 10 minutes)',
     );
-
-    const finalEmailBody = templateReset.replace(`{{resetURL}}`, this.url);
-    await this.send(finalEmailBody, 'passwordReset');
   }
 };
 

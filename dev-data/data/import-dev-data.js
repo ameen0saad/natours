@@ -22,7 +22,6 @@ const Review = require('../../model/reviewModel');
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`));
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`));
 const reviews = JSON.parse(fs.readFileSync(`${__dirname}/reviews.json`));
-//console.log('==>>', __dirname);
 
 //TODO : import data into DB
 const importDate = async () => {

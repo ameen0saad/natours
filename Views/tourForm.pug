@@ -1,0 +1,157 @@
+extends base
+
+block content
+    main.main
+        .form-container
+            if tour
+                h2.heading-secondary.ma-bt-lg Edit Tour
+            else
+                h2.heading-secondary.ma-bt-lg Create New Tour
+
+            form#tourForm.form(enctype="multipart/form-data")
+                // Tour Name
+                .form__group
+                    label.form__label(for="name") Tour Name
+                    input#name.form__input(type="text", name="name", required, value=tour ? tour.name : '')
+
+                // Duration
+                .form__group
+                    label.form__label(for="duration") Duration (days)
+                    input#duration.form__input(type="number", name="duration", required, value=tour ? tour.duration : '')
+
+                // Max Group Size
+                .form__group
+                    label.form__label(for="maxGroupSize") Max Group Size
+                    input#maxGroupSize.form__input(type="number", name="maxGroupSize", required, value=tour ? tour.maxGroupSize : '')
+
+                // Difficulty
+                .form__group
+                    label.form__label(for="difficulty") Difficulty
+                    select#difficulty.form__input(name="difficulty", required)
+                        option(value="") Select difficulty
+                        option(value="easy", selected=tour && tour.difficulty === 'easy') easy
+                        option(value="medium", selected=tour && tour.difficulty === 'medium') medium
+                        option(value="difficult", selected=tour && tour.difficulty === 'difficult') difficult
+
+                // Price
+                .form__group
+                    label.form__label(for="price") Price ($)
+                    input#price.form__input(type="number", name="price", required, value=tour ? tour.price : '')
+
+                // Summary
+                .form__group
+                    label.form__label(for="summary") Summary
+                    textarea#summary.form__input(name="summary", rows="3")= tour ? tour.summary : ''
+
+                // Description
+                .form__group
+                    label.form__label(for="description") Description
+                    textarea#description.form__input(name="description", rows="5")= tour ? tour.description : ''
+
+                // Image Cover
+                .form__group
+                    label.form__label(for="imageCover") Image Cover
+                    input#imageCover.form__input(type="file", name="imageCover")
+                    if tour && tour.imageCover
+                        img.preview(src=`/img/tours/${tour.imageCover}`, alt=tour.name, style="width:150px;margin-top:10px;border-radius:8px;")
+
+                // Additional Images
+                .form__group
+                    label.form__label(for="images") Tour Images
+                    input#images.form__input(type="file", name="images", multiple)
+                    if tour && tour.images
+                        each img in tour.images
+                            img.preview(src=`/img/tours/${img}`, alt=tour.name, style="width:100px;margin:5px;border-radius:6px;")
+
+                .form__group
+                    label.form__label Start Location *
+                    .location-controls(style="margin-bottom: 10px;")
+                        button#useCurrentLocation.btn.btn--small.btn--green(type="button") 
+                            | 📍 Use My Current Location
+                        button#clearLocation.btn.btn--small.btn--gray(type="button") 
+                            | 🗑️ Clear Start Location
+                    
+                    .map-container(style="margin: 10px 0;")
+                        p.form__note Click on the map to select the START location
+                        #startLocationMap(style="height: 300px; border-radius: 8px; border: 2px solid #ddd;")
+                    
+                    .selected-location(style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 5px;")
+                        strong Start Location Coordinates: 
+                        span#startLocationCoordsDisplay None selected
+
+                .form__group
+                    label.form__label(for="startLocationDescription") Start Location Description *
+                    input#startLocationDescription.form__input(type="text", name="startLocationDescription", placeholder="e.g. Banff, CAN", required, value=tour && tour.startLocation ? tour.startLocation.description : '')
+
+                .form__group
+                    label.form__label(for="startLocationAddress") Start Location Address
+                    input#startLocationAddress.form__input(type="text", name="startLocationAddress", placeholder="Full address", value=tour && tour.startLocation ? tour.startLocation.address : '')
+
+                .form__group
+                    label.form__label(for="startLocationCoordinates") Start Location Coordinates *
+                    input#startLocationCoordinates.form__input(
+                        type="text",
+                        name="startLocationCoordinates",
+                        placeholder="Latitude, Longitude - Click on start map to set",
+                        required,
+                        value=tour && tour.startLocation ? (tour.startLocation.coordinates[1] + ', ' + tour.startLocation.coordinates[0]) : ''
+                    )
+
+                // Tour Locations Section
+                .form__group
+                    label.form__label Tour Locations / Stops
+                    .location-controls(style="margin-bottom: 10px;")
+                        button#useCurrentTourLocation.btn.btn--small.btn--green(type="button") 
+                            | 📍 Use My Current Location
+                        button#addTourLocation.btn.btn--small.btn--blue(type="button") 
+                            | ➕ Add This Location
+                        button#clearTourLocation.btn.btn--small.btn--gray(type="button") 
+                            | 🗑️ Clear Tour Location
+                    
+                    .map-container(style="margin: 10px 0;")
+                        p.form__note Click on the map to select TOUR locations, then click "Add This Location"
+                        #tourLocationsMap(style="height: 300px; border-radius: 8px; border: 2px solid #ddd;")
+                    
+                    .selected-location(style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 5px;")
+                        strong Current Tour Location Coordinates: 
+                        span#tourLocationCoordsDisplay None selected
+
+                // Tour Locations Container
+                #tourLocationsContainer
+                    if tour && tour.locations && tour.locations.length > 0
+                        each location, index in tour.locations
+                            .location-item(style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: #f9f9f9;")
+                                .form__group
+                                    label.form__label Day Number *
+                                    input.form__input(type="number", name="locations[][day]", value=location.day, min="1", required)
+                                
+                                .form__group
+                                    label.form__label Location Description *
+                                    input.form__input(type="text", name="locations[][description]", placeholder="e.g. Banff National Park", value=location.description, required)
+                                
+                                .form__group
+                                    label.form__label Coordinates (latitude, longitude) *
+                                    input.form__input.tour-location-coordinates(type="text", name="locations[][coordinates]", placeholder="Click on tour locations map", value=location.coordinates[1] + ', ' + location.coordinates[0], required)
+                                
+                                .form__group
+                                    label.form__label Address
+                                    input.form__input(type="text", name="locations[][address]", placeholder="Full address", value=location.address)
+                                
+                                button.remove-location.btn.btn--small.btn--red(type="button") Remove Location
+                // Start Dates
+                .form__group
+                    label.form__label Start Dates
+                    #datesContainer
+                        each d in tour && tour.startDates ? tour.startDates : []
+                            input.form__input(type="date", name="startDates", value=new Date(d).toISOString().split('T')[0])
+                    button#addDateBtn.btn.btn--small.btn--green(type="button") + Add Date
+
+                // Secret Tour
+                .form__group
+                    label.form__label(for="secretTour")
+                        input#secretTour(type="checkbox", name="secretTour", checked=tour && tour.secretTour)
+                        |  Secret Tour?
+
+                // Buttons
+                .form__group.btn-group
+                    button#saveTour.btn.btn--green(type="submit")= tour ? 'Update Tour' : 'Create Tour'
